@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+<html>
+    <head>
+		<meta name="viewport" http-equiv="Content-Type" content="text/html; charset=utf-8 width=device-width, initial-scale=1"/>
+		<title>Wasserwerk-Einstellungen</title>
+		<script type="text/javascript" src="settingsproc.js"></script>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,700;1,400&family=Sofia&display=swap');
+			
+			table, th, td {
+			  border: thin solid black;
+			  border-collapse: collapse;
+			  padding: 5px;
+			}
+			
+			h1 {
+				font-family: 'Open Sans', sans-serif; font-size: 2.5em;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				}
+				
+			h2 {
+				font-family: 'Open Sans', sans-serif; font-size: 2em;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				}
+				
+			p {
+				font-family: 'Open Sans', sans-serif; font-size: 1.5em;
+				}
+				
+			.button {
+				font-size: 1em;
+			}
+				
+			.button:hover
+				{background-color: #3e8e41}
+
+			.button:active {
+				background-color: #3e8e41;
+				box-shadow: 0 5px #666;
+				transform: translateY(4px);
+				}
+			input[type=text], select {
+				font-family: 'Open Sans', sans-serif; font-size: 1em;
+				width: 100%;
+				padding: 5px 10px;
+				margin: 5px 0;
+				display: inline-block;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+				}
+
+			input[type=date], select {
+				font-family: 'Open Sans', sans-serif; font-size: 1em;
+				width: 100%;
+				}
+				
+			input[type=checkbox] {
+				transform: scale(2);
+				}
+			
+
+		</style>
+    </head>
+<body>
+
+<h1>Einstellungen</h1>
+
+<font size="4em" face="Open Sans" >
+<table>
+  <tr>
+    <td align="center"><b>Nr.</b></td>
+    <td align="center"><b>Name</b></td>
+    <td align="canter"><b>angeschl.</b></td>
+	<td align="center"><b>Laufzeit</b></td>
+	<td align="center"><b>Feuchte</b></td>
+  </tr>
+  <tr>
+    <td align="center">1</td>
+    <td align="center"><input type="text" id="pflanzenName[0]" value = " " maxlength="15"></td>
+    <td align="center"><input type="checkbox" id="pumpenConfig[0]"></span></td>
+	<td align="center"><input type="number" id="pumpeZeit[0]" min="0" max="20"></td>
+	<td align="center"><span id=pflanzenFeuchte[0]></span></td>
+	<td><button class="button" onclick="testPumpe(0)" id="pumpeTest[0]">Test</button></td>
+  </tr>
+  <tr>
+    <td align="center">2</td>
+    <td align="center"><input type="text" id="pflanzenName[1]" maxlength="15"></td>
+    <td align="center"><input type="checkbox" id="pumpenConfig[1]"></td>
+	<td align="center"><input type="number" id="pumpeZeit[1]" min="0" max="20"></td>
+	<td align="center"><span id=pflanzenFeuchte[1]></span></td>
+	<td><button class="button" onclick="testPumpe(1)" id="pumpeTest[1]">Test</button></td>
+  </tr>
+  <tr>
+    <td align="center">3</td>
+    <td align="center"><form><input type="text" id="pflanzenName[2]" maxlength="15"></form></td>
+    <td align="center"><input type="checkbox" id="pumpenConfig[2]"></td>
+	<td align="center"><input type="number" id="pumpeZeit[2]" min="0" max="20"></td>
+	<td align="center"><span id=pflanzenFeuchte[2]></span></td>
+	<td><button class="button" onclick="testPumpe(2)" id="pumpeTest[2]">Test</button></td>
+  </tr>
+  <tr>
+    <td align="center">4</td>
+    <td align="center"><input type="text" id="pflanzenName[3]" maxlength="15"></td>
+    <td align="center"><input type="checkbox" id="pumpenConfig[3]"></td>
+	<td align="center"><input type="number" id="pumpeZeit[3]" min="0" max="20"></td>
+	<td align="center"><span id=pflanzenFeuchte[3]></span></td>
+	<td><button class="button" onclick="testPumpe(3)" id="pumpeTest[3]">Test</button></td>
+  </tr>
+  <tr>
+    <td align="center">5</td>
+    <td align="center"><input type="text" id="pflanzenName[4]" maxlength="15"></td>
+    <td align="center"><input type="checkbox" id="pumpenConfig[4]"></td>
+	<td align="center"><input type="number" id="pumpeZeit[4]" min="0" max="20"></td>
+	<td align="center"><span id=pflanzenFeuchte[4]></span></td>
+	<td><button class="button" onclick="testPumpe(4)" id="pumpeTest[4]">Test</button></td>
+  </tr>
+  <tr>
+    <td align="center">6</td>
+    <td align="center"><input type="text" id="pflanzenName[5]" maxlength="15"></span></td>
+    <td align="center"><input type="checkbox" id="pumpenConfig[5]"></td>
+	<td align="center"><input type="number" id="pumpeZeit[5]" min="0" max="20"></td>
+	<td align="center"><span id=pflanzenFeuchte[5]></span></td>
+	<td><button class="button" onclick="testPumpe(5)" id="pumpeTest[5]">Test</button></td>
+  </tr>
+  <tr>
+    <td align="center">7</td>
+    <td align="center">Überlauf</span></td>
+    <td align="center"><span id=pumpenConfig[6]></span></td>
+	<td align="center"></span></td>
+	<td align="center"><span id=pflanzenFeuchte[6]></span></td>
+  </tr>
+  <tr>
+    <td align="center">8</td>
+    <td align="center">Eimer</span></td>
+    <td align="center"><span id=pumpenConfig[7]></span></td>
+	<td align="center"></span></td>
+	<td align="center"><span id=pflanzenFeuchte[7]></span></td>
+  </tr>
+</table>
+<br>
+<tr>
+<td align="center"><button class="button" onclick="sendJSON()" id="RetSpeichern">speichern</button></td>
+<td align="center"><button class="button" onclick="sendReboot()" id="RetReboot">Reboot</button></td>
+<td align="center"><a href="index.html"><button class="button">zur&uuml;ck</button></td>
+</font>
+
+<p><a href="json.html" style="text-decoration: none"  target="_blank">Version</a>sdatum: <span id="compile">---</span>, c by ottO 2020</p>
+
+</body>
+</html>

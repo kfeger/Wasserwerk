@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+		<meta name="viewport" http-equiv="Content-Type" content="text/html; charset=utf-8 width=device-width, initial-scale=1"/>
+		<title>Wasserwerk-JSON-Daten</title>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,700;1,400&family=Sofia&display=swap');
+			table, th, td {
+			  border: thin solid black;
+			  border-collapse: collapse;
+			  padding: 5px;
+			}
+			
+			tr:nth-child(even) {
+				background-color: #dddddd;
+			}
+
+			
+			h1 {
+				font-family: 'Open Sans', sans-serif; font-size: 2.3em;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				}
+
+		</style> 
+    </head>
+<body>
+<script>
+var url = window.location.hostname;
+
+getJSON();
+
+setInterval(function() {
+  // Call der Function mit 5 Sekunden Interval
+  getJSON();
+}, 1000); //1000ms update rate
+
+function getJSON() {
+  var puConfig = new Array; 
+  var puStatus = new Array;
+  var puZeit = new Array;
+  var pfNamen = new Array;
+  var pfFeuchte = new Array;
+  var i;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+	if (this.readyState == 4 && this.status == 200) {
+		//console.log(this.responseText);
+		var ESPObj = JSON.parse(this.responseText);
+		document.getElementById("wochentag").innerHTML = ESPObj.wochentag;
+		document.getElementById("tag").innerHTML = ESPObj.tag;
+		document.getElementById("uhrzeit").innerHTML = ESPObj.uhrzeit;
+		document.getElementById("compile").innerHTML = ESPObj.compile;
+		document.getElementById("temperatur").innerHTML = ESPObj.temperatur;
+		document.getElementById("vcc").innerHTML = ESPObj.vcc;
+		document.getElementById("host").innerHTML = "http://" + url;
+		document.getElementById("client").innerHTML = "http://" + ESPObj.clientIP;
+		
+		switch(ESPObj.mqtt) {
+		case 0:
+			document.getElementById("mqtt").innerHTML = "Publish Fehler";
+			break;
+		case 1:
+			document.getElementById("mqtt").innerHTML = "Publish o.k.";
+			break;
+		case 2:
+			document.getElementById("mqtt").innerHTML = "Broker nicht erreicht";
+			break;
+		default:
+			document.getElementById("mqtt").innerHTML = "Ups!";
+			break;
+		}
+
+		for (i=0; i<6; i++) {
+			document.getElementById("pflanzenName["+i+"]").innerHTML = ESPObj.pflanzenNamen[i];
+			
+			if (ESPObj.pumpenConfig[i] == true)
+				document.getElementById("pumpenConfig["+i+"]").innerHTML = "ja";
+			else
+				document.getElementById("pumpenConfig["+i+"]").innerHTML = "nein";
+				
+			if (ESPObj.pumpeStatus[i] == true)
+				document.getElementById("pumpeStatus["+i+"]").innerHTML = "läuft";
+			else
+				document.getElementById("pumpeStatus["+i+"]").innerHTML = "steht";
+				
+			document.getElementById("pumpeZeit["+i+"]").innerHTML = ESPObj.pumpeZeit[i];
+			document.getElementById("pflanzenFeuchte["+i+"]").innerHTML = ESPObj.pflanzenFeuchte[i];
+			document.getElementById("sensorFeuchte["+i+"]").innerHTML = ESPObj.sensorFeuchte[i];
+		}
+		document.getElementById("pflanzenFeuchte[6]").innerHTML = ESPObj.pflanzenFeuchte[6];
+		document.getElementById("sensorFeuchte[6]").innerHTML = ESPObj.sensorFeuchte[6];
+		document.getElementById("pflanzenFeuchte[7]").innerHTML = ESPObj.pflanzenFeuchte[7];
+		document.getElementById("sensorFeuchte[7]").innerHTML = ESPObj.sensorFeuchte[7];
+	}
+  };
+  xhttp.open("GET", "readJSON", true);
+  xhttp.send();
+}
+	
+</script>
+
+<h1>
+Inhalt der JSON-Daten vom ESP
+<br>
+</h1>
+
+<font size="4em" face="Open Sans" >
+<table>
+  <tr>
+    <td align="right">Wochentag</td>
+    <td align="right"><span id=wochentag>...</span></td>
+    <td align="left"></td>
+  </tr>
+  <tr>
+    <td align="right">Datum</td>
+    <td align="right"><span id=tag>...</span></td>
+    <td align="left"></td>
+  </tr>
+  <tr>
+    <td align="right">Uhrzeit</td>
+    <td align="right"><span id=uhrzeit>...</span></td>
+    <td align="left"></td>
+  </tr>
+  <tr>
+    <td align="right">Temperatur</td>
+    <td align="right"><span id=temperatur>...</span></td>
+    <td align="left">°C</td>
+  </tr>
+  <tr>
+    <td align="right">Vcc</td>
+    <td align="right"><span id=vcc>...</span></td>
+    <td align="left">V</td>
+  </tr>
+  <tr>
+    <td align="right">Host</td>
+    <td align="left" colspan="2"><span id=host>...</span></td>
+
+  </tr>
+  <tr>
+    <td align="right">Client</td>
+    <td align="left" colspan="2"><span id=client>...</span></td>
+
+  </tr>
+</table>
+<br><br>
+ <table>
+	<th align="center" colspan="8">Pflanzen und Pumpen</th>
+  <tr>
+    <th align="center"><b>Nr.</b></th>
+    <th align="center"><b>Name</b></th>
+    <th align="canter"><b>angeschl.</b></th>
+	<th align="center"><b>läuft</b></th>
+	<th align="center"><b>Laufzeit</b></th>
+	<th align="center"><b>Feuchte</b></th>
+	<th align="center"><b>Sensor mV</b></th>
+  </tr>
+  <tr>
+    <td align="center">1</td>
+    <td align="center"><span id=pflanzenName[0]></span></td>
+    <td align="center"><span id=pumpenConfig[0]></span></td>
+	<td align="center"><span id=pumpeStatus[0]></span></td>
+	<td align="center"><span id=pumpeZeit[0]></span></td>
+	<td align="center"><span id=pflanzenFeuchte[0]></span></td>
+	<td align="center"><span id=sensorFeuchte[0]>mV</span></td>
+  </tr>
+  <tr>
+    <td align="center">2</td>
+    <td align="center"><span id=pflanzenName[1]></span></td>
+    <td align="center"><span id=pumpenConfig[1]></span></td>
+	<td align="center"><span id=pumpeStatus[1]></span></td>
+	<td align="center"><span id=pumpeZeit[1]></span></td>
+	<td align="center"><span id=pflanzenFeuchte[1]></span></td>
+	<td align="center"><span id=sensorFeuchte[1]>mV</span></td>
+  </tr>
+  <tr>
+    <td align="center">3</td>
+    <td align="center"><span id=pflanzenName[2]></span></td>
+    <td align="center"><span id=pumpenConfig[2]></span></td>
+	<td align="center"><span id=pumpeStatus[2]></span></td>
+	<td align="center"><span id=pumpeZeit[2]></span></td>
+	<td align="center"><span id=pflanzenFeuchte[2]></span></td>
+	<td align="center"><span id=sensorFeuchte[2]>mV</span></td>
+  </tr>
+  <tr>
+    <td align="center">4</td>
+    <td align="center"><span id=pflanzenName[3]></span></td>
+    <td align="center"><span id=pumpenConfig[3]></span></td>
+	<td align="center"><span id=pumpeStatus[3]></span></td>
+	<td align="center"><span id=pumpeZeit[3]></span></td>
+	<td align="center"><span id=pflanzenFeuchte[3]></span></td>
+	<td align="center"><span id=sensorFeuchte[3]>mV</span></td>
+  </tr>
+  <tr>
+    <td align="center">5</td>
+    <td align="center"><span id=pflanzenName[4]></span></td>
+    <td align="center"><span id=pumpenConfig[4]></span></td>
+	<td align="center"><span id=pumpeStatus[4]></span></td>
+	<td align="center"><span id=pumpeZeit[4]></span></td>
+	<td align="center"><span id=pflanzenFeuchte[4]></span></td>
+	<td align="center"><span id=sensorFeuchte[4]>mV</span></td>
+  </tr>
+  <tr>
+    <td align="center">6</td>
+    <td align="center"><span id=pflanzenName[5]></span></td>
+    <td align="center"><span id=pumpenConfig[5]></span></td>
+	<td align="center"><span id=pumpeStatus[5]></span></td>
+	<td align="center"><span id=pumpeZeit[5]></span></td>
+	<td align="center"><span id=pflanzenFeuchte[5]></span></td>
+	<td align="center"><span id=sensorFeuchte[5]>mV</span></td>
+  </tr>
+  <tr>
+    <td align="center">7</td>
+    <td align="center">Überlauf</span></td>
+    <td align="center">---</td>
+	<td align="center">---</td>
+	<td align="center">---</td>
+	<td align="center"><span id=pflanzenFeuchte[6]></span></td>
+	<td align="center"><span id=sensorFeuchte[6]>mV</span></td>
+  </tr>
+  <tr>
+    <td align="center">8</td>
+    <td align="center">Wassereimer</span></td>
+    <td align="center">---</td>
+	<td align="center">---</td>
+	<td align="center">---</td>
+	<td align="center"><span id=pflanzenFeuchte[7]></span></td>
+	<td align="center"><span id=sensorFeuchte[7]>mV</span></td>
+  </tr>
+</table>
+</font>
+<p>MQTT Status: <span id="mqtt">---</span></p>
+<p>Kompilezeit <span id="compile"></span></p>
+</body>
+</html>
+

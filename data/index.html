@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+<html>
+    <head>
+		<meta name="viewport" http-equiv="Content-Type" content="text/html; charset=utf-8 width=device-width, initial-scale=1"/>
+		<title>Elke's Wasserwerk</title>
+		<link rel="stylesheet" type="text/css" href="indexstyle.css">
+		<script type="text/javascript" src="indexproc.js"></script>
+		<style>
+			@import url('https://fonts.googleapis.com/css2?family=Monofett&family=Monoton&family=Open+Sans:ital,wght@0,300;0,700;1,400&family=Sofia&display=swap');
+			@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+		</style> 
+    </head>
+<body>
+
+<div class="bilder">
+<img src="\Shadoks300.png" alt="Pumpen, pumpen!">
+</div>
+<div class= "texte">
+  <h3>Es ist <span id="wochentag">...</span>,<br>
+  der <span id="tag">...</span>, <span id="uhrzeit">...</span></h3>
+</div>
+
+<font size="4em" face="Open Sans" >
+<table id="Pflanzen">
+  <tr>
+    <td align="center"><b>Nr.</b></td>
+    <td align="center"><b>Name</b></td>
+    <td align="canter" style="width:50px"><b>   </b></td>
+	<td align="center"><b>Laufzeit s</b></td>
+	<td align="center"><b>Feuchte %</b></td>
+	<td align="center"><b></b></td>
+	<td align="center" style="width:40px"><b></b></td>
+  </tr>
+  <tr>
+    <td align="center">1</td>
+    <td align="center"><span id=pflanzenName[0]></span></td>
+    <td align="center"><span id=pumpenConfig[0]></span></td>
+	<td align="center"><span id=pumpeZeit[0]></span></td>
+	<td align="center"><span id=pflanzenFeuchte[0]></span></td>
+	<td><button class="button" onclick="runPumpe(0)" id="pumpeStart[0]">Wasser marsch!</button></td>
+	<td align="center"><span id=runningPump[0]></b></td>
+  </tr>
+  <tr>
+    <td align="center">2</td>
+    <td align="center"><span id=pflanzenName[1]></span></td>
+    <td align="center"><span id=pumpenConfig[1]></span></td>
+	<td align="center"><span id=pumpeZeit[1]></span></td>
+	<td align="center"><span id=pflanzenFeuchte[1]></span></td>
+	<td><button class="button" onclick="runPumpe(1)" id="pumpeStart[1]">Wasser marsch!</button></td>
+	<td align="center"><span id=runningPump[1]></td>
+  </tr>
+  <tr>
+    <td align="center">3</td>
+    <td align="center"><span id=pflanzenName[2]></span></td>
+    <td align="center"><span id=pumpenConfig[2]></span></td>
+	<td align="center"><span id=pumpeZeit[2]></span></td>
+	<td align="center"><span id=pflanzenFeuchte[2]></span></td>
+	<td><button class="button" onclick="runPumpe(2)" id="pumpeStart[2]">Wasser marsch!</button></td>
+	<td align="center"><span id=runningPump[2]></td>
+  </tr>
+  <tr>
+    <td align="center">4</td>
+    <td align="center"><span id=pflanzenName[3]></span></td>
+    <td align="center"><span id=pumpenConfig[3]></span></td>
+	<td align="center"><span id=pumpeZeit[3]></span></td>
+	<td align="center"><span id=pflanzenFeuchte[3]></span></td>
+	<td><button class="button" onclick="runPumpe(3)" id="pumpeStart[3]">Wasser marsch!</button></td>
+	<td align="center"><span id=runningPump[3]></td>
+  </tr>
+  <tr>
+    <td align="center">5</td>
+    <td align="center"><span id=pflanzenName[4]></span></td>
+    <td align="center"><span id=pumpenConfig[4]></span></td>
+	<td align="center"><span id=pumpeZeit[4]></span></td>
+	<td align="center"><span id=pflanzenFeuchte[4]></span></td>
+	<td><button class="button" onclick="runPumpe(4)" id="pumpeStart[4]">Wasser marsch!</button></td>
+	<td align="center"><span id=runningPump[4]></td>
+  </tr>
+  <tr>
+    <td align="center">6</td>
+    <td align="center"><span id=pflanzenName[5]></span></td>
+    <td align="center"><span id=pumpenConfig[5]></span></td>
+	<td align="center"><span id=pumpeZeit[5]></span></td>
+	<td align="center"><span id=pflanzenFeuchte[5]></span></td>
+	<td><button class="button" onclick="runPumpe(5)" id="pumpeStart[5]">Wasser marsch!</button></td>
+	<td align="center"><span id=runningPump[5]></td>
+  </tr>
+  <tr>
+    <td align="center">7</td>
+    <td align="center">Überlauf</td>
+    <td align="center"><span id=pumpenConfig[6]></td>
+	<td align="center"></td>
+	<td align="center"><span id=pflanzenFeuchte[6]></span></td>
+  </tr>
+  <tr>
+    <td align="center">8</td>
+    <td align="center">Eimer</td>
+    <td align="center"><span id=pumpenConfig[7]></td>
+	<td align="center"></td>
+	<td align="center"><span id=pflanzenFeuchte[7]></span></td>
+  </tr>
+</table>
+<br>
+<table>
+  <tr>
+    <td align="right">Temperatur</td>
+    <td align="right"><span id="temperatur">...</span></td>
+    <td align="left">°C</td>
+    <td align="right">Versorgungsspg.</td>
+    <td align="right"><span id="vcc">...</span></td>
+    <td align="left">V</td>
+  </tr>
+</table>
+</font>
+<br>
+<div style="font-size:0.75em">
+	<a href="settings.html" class="button5" style="background-color:#42cc8c;">Einstellungen</a>
+</div>
+
+<p><a href="json.html" style="text-decoration: none"  target="_blank">Version</a>sdatum: <span id="compile">---</span>, c by ottO 2020</p>
+</body>
+</html>

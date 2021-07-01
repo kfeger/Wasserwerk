@@ -4,3 +4,5 @@ Fest stehen die Eckwerte 0% (staubtrocken) und 100% (blankes Wasser). Die Steuer
 
 Die Kommunikation zwischen Webclient und Server ist JSON-basiert. Es wird eine Update-Funktion angeboten, die allerdings NICHT Internet-fähig ist, da die Updates vollkommen ungeschützt
 übertragen werden.
+
+Alle I/Os gehen über I2C mit Ausnahme des Thermometers. Hier wird OneWire verwendet.
